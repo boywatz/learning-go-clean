@@ -7,6 +7,7 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
+	log "github.com/sirupsen/logrus"
 )
 
 var err error
@@ -20,6 +21,8 @@ func main() {
 
 	defer databases.DB.Close()
 	databases.DB.AutoMigrate(&models.Todo{})
+
+	log.Info("This is sample log with logrus.")
 
 	r := routes.SetupRouter()
 	r.Run(":9000")

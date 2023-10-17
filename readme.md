@@ -24,3 +24,10 @@ ref: https://kritwis.medium.com/golang-clean-architecture-with-demo-e0938e5be02b
 ```bash
   go clean -modcache
 ```
+
+- docker cmd
+
+```bash
+  docker rm -f $(docker ps -a -q) 
+  docker rmi $(docker images -q)
+```

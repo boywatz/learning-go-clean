@@ -10,9 +10,13 @@ repos:
     rev: v0.5.0
     hooks:
       - id: go-fmt
+      - id: go-vet
       - id: no-go-testing
       - id: golangci-lint
       - id: go-unit-tests
+      - id: go-mod-tidy
+      - id: go-mod-vendor
+      - id: go-build
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
     rev: v8.0.0
     hooks:

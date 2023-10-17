@@ -4,7 +4,7 @@ FROM golang:alpine AS builder
 # ติดตั้ง git
 RUN apk update && apk add --no-cache git
 
-WORKDIR $GOPATH
+WORKDIR $GOPATH/src/app
 COPY . .
 
 # สร้าง binary

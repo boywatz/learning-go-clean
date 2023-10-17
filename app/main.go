@@ -23,7 +23,10 @@ func main() {
 	databases.DB.AutoMigrate(&models.Todo{})
 
 	log.Info("This is sample log with logrus.")
+	log.Info("add this line for test about pre-commit git hook.")
 
 	r := routes.SetupRouter()
-	r.Run(":9000")
+	if err := r.Run(":9000"); err != nil {
+		log.Error(err)
+	}
 }

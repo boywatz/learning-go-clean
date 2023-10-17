@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 type TodoHandler struct {
@@ -45,7 +46,9 @@ func (t *TodoHandler) CreateTodo(c *gin.Context) {
 
 	err := t.todoUseCase.CreateTodo(&todo)
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
+		if ginError := c.AbortWithError(http.StatusInternalServerError, err); ginError != nil {
+			logrus.Error(ginError)
+		}
 	} else {
 		c.JSON(http.StatusCreated, todo)
 	}
@@ -59,7 +62,9 @@ func (t *TodoHandler) UpdateTodo(c *gin.Context) {
 	}
 
 	if err := t.todoUseCase.UpdateTodo(&todo, id); err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
+		if ginError := c.AbortWithError(http.StatusInternalServerError, err); ginError != nil {
+			logrus.Error(ginError)
+		}
 	} else {
 		c.JSON(http.StatusAccepted, todo)
 	}
@@ -69,7 +74,9 @@ func (t *TodoHandler) DeleteTodo(c *gin.Context) {
 	id := c.Params.ByName("id")
 	var todo models.Todo
 	if err := t.todoUseCase.DeleteTodo(&todo, id); err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
+		if ginError := c.AbortWithError(http.StatusInternalServerError, err); ginError != nil {
+			logrus.Error(ginError)
+		}
 	} else {
 		c.JSON(http.StatusAccepted, gin.H{"id:" + id: "deleted"})
 	}

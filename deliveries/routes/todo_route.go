@@ -3,6 +3,7 @@ package routes
 import (
 	"boywatz/go-clean/databases"
 	"boywatz/go-clean/deliveries"
+	"boywatz/go-clean/deliveries/middlewares"
 	"boywatz/go-clean/repositories"
 	"boywatz/go-clean/usecases"
 
@@ -16,6 +17,8 @@ func SetupRouter() *gin.Engine {
 
 	r := gin.Default()
 	v1 := r.Group("/v1")
+
+	v1.Use(middlewares.CommonMiddleware(), middlewares.GreetingMiddleware(), middlewares.LoggingMiddleware())
 	{
 		v1.GET("todo", todoHandler.GetAllTodo)
 		v1.POST("todo", todoHandler.CreateTodo)
